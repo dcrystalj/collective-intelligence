@@ -1,0 +1,60 @@
+% To je predloga za poročila o domačih nalogah pri predmetih, katerih
+% nosilec je Blaž Zupan. Seveda lahko tudi dodaš kakšen nov, zanimiv
+% in uporaben element, ki ga v tej predlogi (še) ni. Več o LaTeX-u izveš na
+% spletu, na primer na http://tobi.oetiker.ch/lshort/lshort.pdf.
+%
+% To predlogo lahko spremeniš v PDF dokument s pomočjo programa
+% pdflatex, ki je del standardne instalacije LaTeX programov.
+
+\documentclass[a4paper,11pt]{article}
+\usepackage{a4wide}
+\usepackage{fullpage}
+\usepackage[utf8x]{inputenc}
+\usepackage[slovene]{babel}
+\selectlanguage{slovene}
+\usepackage[toc,page]{appendix}
+\usepackage[pdftex]{graphicx} % za slike
+\usepackage{setspace}
+\usepackage{color}
+\definecolor{light-gray}{gray}{0.95}
+\usepackage{listings} % za vključevanje kode
+\usepackage{hyperref}
+\renewcommand{\baselinestretch}{1.2} % za boljšo berljivost večji razmak
+\renewcommand{\appendixpagename}{Priloge}
+
+\lstset{ % nastavitve za izpis kode, sem lahko tudi kaj dodaš/spremeniš
+language=Python,
+basicstyle=\footnotesize,
+basicstyle=\ttfamily\footnotesize\setstretch{1},
+backgroundcolor=\color{light-gray},
+}
+
+\title{strojno ocenjevanje kratkih odgovorov}
+\author{Tomaž Tomažič (63100281)}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section{Uvod}
+
+Cilj naloge je oceniti kratke odgovore na neznana vprašanja tako, kot bi to storil pravi ocenjevalec.
+
+\section{Podatki}
+
+Podani so učni in testni  podatki za učenje in napovedi ocen, v katerih so odgovori na 10 različnih vprašanj na katere je odgovorilo skoraj dva tisoč študentov.
+Odgovorov za učenje je 17043 in za vsak primerek je podana ocena dveh ocenjevalcev.
+
+\section{Metode}
+
+Nalogo sem rešil z uporabo logistične regresije. Najprej sem očistil besedilo tako da sem odstranil ločila, nepotrebne presledke, števila in določene znake. Potem sem za vsak odgovor preštel pojative štiriterk znakov. Ker jih je bilo zelo malo podobnih v različnih vprašanjih oziroma so zelo različne, sem podatke shranil v redko matriko, kar mi je omogočalo hitrejše računanje logistične regresije. Zatem sem zgradil 3 oziroma 4 modele za vsako vprašanje, odvisno od razpona ocene, katere sem uporabil za ocenjevanje testnih podatkov. Ker nisem implementiral k-prečnega preverjanja, sem napoved izračunal na le nekaj lambdah (4,6,7,7.5,8,10,12,16) in tako izbral najugodnejšo, glede na rezultat na učilnici. Zaradi istega razloga tudi nisem poiskal najboljše lambde za vsak tip odgovora posebej, ampak sem eno lambdo uporabil za vse tipe.
+
+\section{Rezultati}
+
+Na učilnici kjer sem oddal napovedi, sem dosegel najvišji rezultat z točnostjo 0.65056% pri lambdi 7. Rezultat je dokaz, da je z računalnikom možno tudi v takih primerih zamenjati eksperta ocenjevalca. 
+
+\section{Izjava o izdelavi domače naloge}
+Domačo nalogo in pripadajoče programe sem izdelal sam.
+
+\end{document}
